@@ -1,4 +1,3 @@
-
 # AtliQ Hotels Data Analysis Project
 
 AtliQ Hotels, a prestigious five-star hotel chain in India, has been facing revenue challenges due to increasing competition. This project aims to analyze their booking data to extract valuable insights that can inform strategic decisions to enhance customer satisfaction and boost revenue.
