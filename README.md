@@ -1,29 +1,33 @@
-
 # AtliQ Hotels Data Analysis Project
 
 AtliQ Hotels, a prestigious five-star hotel chain in India, has been facing revenue challenges due to increasing competition. This project aims to analyze their booking data to extract valuable insights that can inform strategic decisions to enhance customer satisfaction and boost revenue.
 
+---
+
 ## Project Structure
 
-1.Data Import and Exploration
-2.Data Cleaning
-3.Data Transformation
-4.Data Analysis and Insights
-## 1.Data import and Exploration
+1. **Data Import and Exploration**
+2. **Data Cleaning**
+3. **Data Transformation**
+4. **Data Analysis and Insights**
 
-Datasets Used:
+---
 
-dim_date.csv
-dim_hotels.csv
-dim_rooms.csv
-fact_aggregated_bookings.csv
-fact_bookings.csv
+### 1. Data Import and Exploration
 
-Steps:
+**Datasets Used:**
+- `dim_date.csv`
+- `dim_hotels.csv`
+- `dim_rooms.csv`
+- `fact_aggregated_bookings.csv`
+- `fact_bookings.csv`
 
-Imported necessary libraries and loaded datasets using Pandas.
-Performed initial data exploration to understand the structure and content of each dataset.
+**Steps:**
+- Imported necessary libraries and loaded datasets using Pandas.
+- Performed initial data exploration to understand the structure and content of each dataset.
 
+**Sample Code:**
+```python
 import pandas as pd
 
 # Load datasets
@@ -40,17 +44,12 @@ print(dim_rooms.head())
 print(fact_aggregated_bookings.head())
 print(fact_bookings.head())
 
-## 2. Data Cleaning
-
+2. Data Cleaning
 Actions Taken:
 
-1. Identified and removed invalid data entries, such as negative guest counts.
-
-2. Handled missing values appropriately, either by filling them with suitable substitutes or by removing the records.
-
-3. Detected and addressed outliers in revenue data to ensure accuracy in analysis.
-
-Sample Code:
+Identified and removed invalid data entries, such as negative guest counts.
+Handled missing values appropriately, either by filling them with suitable substitutes or by removing the records.
+Detected and addressed outliers in revenue data to ensure accuracy in analysis.
 
 # Remove negative guest counts
 fact_bookings = fact_bookings[fact_bookings['guest_count'] >= 0]
@@ -66,16 +65,13 @@ lower_bound = q1 - 1.5 * iqr
 upper_bound = q3 + 1.5 * iqr
 fact_bookings = fact_bookings[(fact_bookings['revenue'] >= lower_bound) & (fact_bookings['revenue'] <= upper_bound)]
 
-## 3. Data transformation
 
+  3. Data Transformation
 Processes:
 
-1. Merged datasets to create a comprehensive view of the data.
-
-2. Standardized column names and data formats for consistency.
-
-3. Created new features, such as booking month and day type, to facilitate deeper analysis.
-
+Merged datasets to create a comprehensive view of the data.
+Standardized column names and data formats for consistency.
+Created new features, such as booking month and day type, to facilitate deeper analysis.
 Sample Code:
 
 # Merge fact_bookings with dim_date to add date-related information
@@ -88,19 +84,17 @@ merged_data.columns = merged_data.columns.str.lower().str.replace(' ', '_')
 merged_data['booking_month'] = pd.to_datetime(merged_data['date']).dt.month_name()
 
 # Create new feature: day_type (Weekend/Weekday)
-merged_data['day_type'] = pd.to_datetime(merged_data['date']).dt.dayofweek.apply(lambda x: 'Weekend' if x >= 5 else 'Weekday')
+merged_data['day_type'] = pd.to_datetime(merged_data['date']).dt.dayofweek.apply(
+    lambda x: 'Weekend' if x >= 5 else 'Weekday'
+)
 
-## 4. Data Analysis and Insights
 
+4. Data Analysis and Insights
 Key Insights:
 
-1. Booking Trends: Analyzed booking patterns to identify peak periods and popular room categories.
-
-2. Revenue Analysis: Assessed revenue performance across different properties and time periods.
-
-3. Capacity Utilization: Evaluated how effectively each property utilized its capacity and identified opportunities for improvement.
-
-
+Booking Trends: Analyzed booking patterns to identify peak periods and popular room categories.
+Revenue Analysis: Assessed revenue performance across different properties and time periods.
+Capacity Utilization: Evaluated how effectively each property utilized its capacity and identified opportunities for improvement.
 Sample Code:
 
 import matplotlib.pyplot as plt
@@ -126,7 +120,9 @@ plt.xticks(rotation=45)
 plt.show()
 
 # Capacity utilization
-capacity_utilization = merged_data.groupby('property_name').apply(lambda x: x['guest_count'].sum() / x['capacity'].sum())
+capacity_utilization = merged_data.groupby('property_name').apply(
+    lambda x: x['guest_count'].sum() / x['capacity'].sum()
+)
 plt.figure(figsize=(10, 6))
 sns.barplot(x=capacity_utilization.index, y=capacity_utilization.values)
 plt.title('Capacity Utilization by Property')
@@ -135,29 +131,26 @@ plt.ylabel('Capacity Utilization')
 plt.xticks(rotation=45)
 plt.show()
 
-## Technologies Used
 
-1. Programming language: Python
+Technologies Used
+Programming Language: Python
+Libraries: Pandas, NumPy, Matplotlib, Seaborn
 
-2. Libraries: Pandas, NumPy, Matplotlib, Seaborn
-## How to Run
-
+How to Run
 1. Clone the Repository:
 
 git clone https://github.com/Abdulajees-123/Hospitality-Analysis---Python.git
 
 2. Navigate to the Project Directory:
-
 cd Hospitality-Analysis---Python
 
 3. Install Required Packages:
-
 pip install -r requirements.txt
 
-4. Run the Jupyter Notebook:
+Run the Jupyter Notebook:
 
 jupyter notebook hotels_analysis.ipynb
 
-## Results
-
+Results
 The analysis provided actionable insights into booking behaviors, revenue streams, and capacity management. These insights can guide AtliQ Hotels in refining their strategies to enhance operational efficiency and profitability.
+
